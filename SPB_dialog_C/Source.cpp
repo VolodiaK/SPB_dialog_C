@@ -4,12 +4,18 @@
 #include <iostream>
 
 
+struct number
+{	
+		char country[4];
+		unsigned int num;
+};
+
 struct elem
 {
 	char name[50];
 	char street[30];
 	char city[30];
-	char number[15];
+	number num;
 };
 
 void addElem()
@@ -18,16 +24,25 @@ void addElem()
 	FILE *data = fopen("data", "ab");
 	printf("Enter data about a new item\n");
 	printf("Name: ");
-	gets(newE.name);
-	//scanf("%s", newE.name);
+	scanf("%s", newE.name);
 	printf("\nStreet: ");
-	gets(newE.street);
-	//scanf("%s", newE.street);
+	scanf("%s", newE.street);
 	printf("\nCity: ");
-	gets(newE.city);
-	//scanf("%s", newE.city);
+	scanf("%s", newE.city);
 	printf("\nNumber: ");
-	gets(newE.number);
+	char temp[15];
+	scanf("%s", temp);
+	for (int i = 0; i < 4; i++)
+	{
+		newE.num.country[i] = temp[i];
+	}
+	temp[4] = '\0';
+	char temp1[11];
+	for (int i = 4; i < 15; i++)
+	{
+		temp1[i-4] = temp[i];
+	}
+	newE.num.num = atoi(temp1);
 	fwrite(&newE, sizeof(struct elem), 1, data);
 	fclose(data);
 
@@ -40,7 +55,7 @@ void showData()
 	fread(&buf, sizeof(struct elem), 1, data);
 	do
 	{
-		printf("%s %s %s +%s \n", buf.name, buf.city, buf.street, buf.number);
+		printf("%s %s %s +%s-%d \n", buf.name, buf.city, buf.street, buf.num.country, buf.num.num);
 		fread(&buf, sizeof(struct elem), 1, data);
 	} while (!feof(data));
 	fclose(data);
@@ -48,7 +63,7 @@ void showData()
 
 int main(void)
 {
-	for (int i = 0; i < 2; i++)
+	for (int i = 0; i < 1; i++)
 		addElem();
 	showData();
 	_getch();

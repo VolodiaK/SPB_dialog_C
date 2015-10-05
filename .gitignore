@@ -1,0 +1,16 @@
+Debug/
+*.txt
+*.md
+*.sln
+*.suo
+*.exe
+*.ilk
+*.pdb
+*.sdf
+*.vcxproj
+*.filters
+*.tlog
+*.obj
+*.idb
+*.log
+*.opensdf
