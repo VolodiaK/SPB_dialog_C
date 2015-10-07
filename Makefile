@@ -1,4 +1,4 @@
-CC=gcc
+#CC=gcc
 MKDIR=mkdir -p
 BUILDDIR=BUILD
 SRC=src/Source.c
