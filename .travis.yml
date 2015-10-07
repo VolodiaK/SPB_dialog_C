@@ -1,11 +1,14 @@
 language: c
 
+sudo: false
+
 compiler:
   - clang
   - gcc
 
-install:
-  - make
+branches:
+  only:
+    - master
 
-script:
-  - make test
+script: make all
+after_success: make test
