@@ -18,8 +18,7 @@ $(BUILDDIR):
 	$(MKDIR) $(BUILDDIR)
 
 test: $(EXE)
-	$(EXE) < test/test.inp > test/test.out
-	cat test/test.out
+	$(EXE) < test/test.inp
 
 clean:
 	$(REMOVE) $(BUILDDIR)
