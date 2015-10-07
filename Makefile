@@ -4,7 +4,6 @@
 #CC=clang
 #CC=cl
 
-
 MKDIR=mkdir -p
 BUILDDIR=BUILD
 SRC=src/Source.c

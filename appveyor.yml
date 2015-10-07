@@ -13,7 +13,7 @@ environment:
       CONFIG: Release
 
 build_script:
-  - make
+  - cl.exe /Fe BUILD/spb.exe src/Source.c
 
 test_script:
   - test/testrun.bat
