@@ -2,6 +2,6 @@ language: c
 compiler:
   - clang
   - gcc
-install: false
-script: make
-test: make test
+script:
+  - make
+  - make test
