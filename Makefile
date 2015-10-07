@@ -1,24 +1,54 @@
+#!/bin/make
+
 #CC=gcc
+#CC=clang
+#CC=cl
+
+
 MKDIR=mkdir -p
 BUILDDIR=BUILD
 SRC=src/Source.c
-EXE=$(BUILDDIR)/spb
-OBJ=$(BUILDDIR)/spb.o
-REMOVE=rm -Rf
+
+UNAME := $(shell uname -s)
+ifeq ($(UNAME),Linux)
+	EXEEXT=
+else 
+	EXEEXT=.exe
+endif
+
+ifeq ($CC,cl)
+	OBJEXT=.OBJ
+	OUTOPT=/Fe
+	CFLAGS=/c
+else
+	ifeq ($CC,clang)
+		CFLAGS=-Weverything -pedantic -std=c99 -c
+	else
+		CFLAGS=-Wall -pedantic -std=c99 -c
+	endif
+
+	OUTOPT=-o
+	REMOVE=rm -Rf
+	OBJEXT=.o
+endif
+
+EXE=$(BUILDDIR)/spb$(EXEEXT)
+OBJ=$(BUILDDIR)/spb$(OBJEXT)
+TESTDATA=test/test.inp
 
 all: $(EXE)
 
 $(EXE): $(OBJ)
-	$(CC) -o $(EXE) $(OBJ)
+	$(CC) $(OUTOPT) $(EXE) $(OBJ)
 
 $(OBJ): $(BUILDDIR) $(SRC)
-	$(CC) -std=c99 -c -o $(OBJ) $(SRC)
+	$(CC) $(CFLAGS) $(OUTOPT) $(OBJ) $(SRC)
 
 $(BUILDDIR):
 	$(MKDIR) $(BUILDDIR)
 
 test: $(EXE)
-	$(EXE) < test/test.inp
+	$(EXE) < $(TESTDATA)
 
 clean:
 	$(REMOVE) $(BUILDDIR)
