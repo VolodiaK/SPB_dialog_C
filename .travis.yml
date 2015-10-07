@@ -10,8 +10,5 @@ branches:
   only:
     - master
 
-build:
-    - make
-
 script:
   - make test
